@@ -1,0 +1,19 @@
+@import 'styles/abstracts/variables.scss';
+
+
+.button {
+  width: 11rem;
+  height: 4rem;
+  background: linear-gradient(180deg, #45A6FF 0%, #0055FB 100%), #C4C4C4;
+  border-radius: 5px;
+  color: $color-white-main;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 30px;
+  &_disabled {
+    background: linear-gradient(0deg, #C4C4C4, #C4C4C4), linear-gradient(180deg, #45A6FF 0%, #0055FB 100%);;
+  }
+}
