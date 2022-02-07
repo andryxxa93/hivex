@@ -1,0 +1,14 @@
+@import 'styles/abstracts/variables.scss';
+
+.login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: $color-grey-main;
+  &__info {
+    color: $color-grey-text;
+    font-size: 1.6rem;
+  }
+}

@@ -1,16 +1,6 @@
-import React from 'react';
-import Login from '../pages/Login';
-import Main from '../pages/Main';
-
-export enum RouteNames {
-  LOGIN = '/login',
-  MAIN = '/'
-}
-
-export interface IRoute {
-  path: string,
-  component: React.ComponentType,
-}
+import Login from 'pages/Login';
+import Main from 'pages/Main';
+import { IRoute, RouteNames } from './types';
 
 export const publicRoutes: IRoute[] = [
   {
