@@ -6,13 +6,16 @@ interface IButtonProps {
   title: string,
   loading?: boolean,
   disabled?: boolean,
+  onClickHandler: () => void,
 }
 
-const Button:FC<IButtonProps> = ({ title, loading = false, disabled = false }) => {
+const Button:FC<IButtonProps> = ({
+  title, loading = false, disabled = false, onClickHandler,
+}) => {
   return (
-    <div className={`button ${disabled && 'button_disabled'}`}>
+    <button type="submit" onClick={onClickHandler} disabled={disabled} className={`button ${disabled && 'button_disabled'}`}>
       {loading ? <Spinner /> : title}
-    </div>
+    </button>
   );
 };
 

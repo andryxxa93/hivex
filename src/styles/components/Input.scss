@@ -13,6 +13,9 @@
     justify-content: space-between;
     align-items: center;
   }
+  &__tip {
+    color: $color-grey-text;
+  }
   &__label {
     color: $color-black-text;
     font-size: 1.6rem;

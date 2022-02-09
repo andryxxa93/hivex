@@ -10,14 +10,26 @@ const AppRouter = () => {
       ? (
         <Routes>
           {privateRoutes.map((route) => {
-            return <Route key={route.path} path={route.path} element={<route.component />} />;
+            return (
+              <Route key={route.path} path={route.path} element={<route.component />}>
+                {route.children?.map((child) => {
+                  return <Route key={child.path} path={child.path} element={<child.component />} />;
+                }) }
+              </Route>
+            );
           })}
         </Routes>
       )
       : (
         <Routes>
           {publicRoutes.map((route) => {
-            return <Route key={route.path} path={route.path} element={<route.component />} />;
+            return (
+              <Route key={route.path} path={route.path} element={<route.component />}>
+                {route.children?.map((child) => {
+                  return <Route key={child.path} path={child.path} element={<child.component />} />;
+                }) }
+              </Route>
+            );
           })}
         </Routes>
       )
