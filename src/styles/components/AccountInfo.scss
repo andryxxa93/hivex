@@ -1,0 +1,21 @@
+@import 'styles/abstracts/variables.scss';
+
+.account-info {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  border-radius: .5rem;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: .5rem 1.5rem;
+  span {
+    position: relative;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    &:not(&:nth-child(1)) {
+      &::before {
+        content: ': ';
+        color: $color-grey-text;
+      }
+    }
+  }
+}

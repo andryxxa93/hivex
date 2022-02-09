@@ -14,7 +14,7 @@ const Login: FC = () => {
   return (
     <div className="login">
       <img className="login__logo" src="./LOGO.png" alt="logo" />
-      <Form onSubmitHandler={onSubmit} isLoading={isLoading} error={error} title="API-консолька" />
+      <Form onSubmitHandler={onSubmit} isLoading={isLoading} error={error} />
       <a href="https://github.com/andryxxa93" className="login__info">https://github.com/andryxxa93</a>
     </div>
   );

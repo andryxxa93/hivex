@@ -1,0 +1,20 @@
+.logout {
+  display: flex;
+  margin: 0 3rem;
+  height: 3rem;
+  align-items: center;
+  box-sizing: border-box;
+  &__img {
+    cursor: pointer;
+    img {
+      margin-top: 7px;
+      margin-left: .8rem;
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+  span {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+  }
+}
