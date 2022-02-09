@@ -4,16 +4,16 @@ import useInput from 'hooks/useInput';
 import Input from './Input';
 import Button from './Button';
 import 'styles/components/Form.scss';
+import Title from './UI/Title';
 
 interface IFormProps {
-  title: string,
   error?: ErrorType,
   isLoading?: boolean,
   onSubmitHandler: (userLogin: string, password: string, subLogin: string) => void
 }
 
 const Form: FC<IFormProps> = ({
-  title, error, isLoading, onSubmitHandler,
+  error, isLoading, onSubmitHandler,
 }) => {
   const userLogin = useInput('', { isEmpty: true, isLatin: true });
   const subLogin = useInput('', { isLatin: true });
@@ -25,9 +25,7 @@ const Form: FC<IFormProps> = ({
 
   return (
     <div className="form">
-      <h3 className="form__title">
-        {title}
-      </h3>
+      <Title size="big" />
       {error?.id && (
       <div className="form__error">
         <div className="form__error-title">
