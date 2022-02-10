@@ -10,17 +10,9 @@ interface ISizer {
 
 const Sizer: FC<ISizer> = ({ fullScreen, changeScreenSize }) => {
   return (
-    fullScreen
-      ? (
-        <div role="button" className="sizer" tabIndex={-1} onKeyDown={changeScreenSize} onClick={changeScreenSize}>
-          {fullScreenIcon}
-        </div>
-      )
-      : (
-        <div role="button" className="sizer" tabIndex={-1} onKeyDown={changeScreenSize} onClick={changeScreenSize}>
-          {smallScreenIcon}
-        </div>
-      )
+    <div role="button" className="sizer" tabIndex={-1} onKeyDown={changeScreenSize} onClick={changeScreenSize}>
+      {fullScreen ? fullScreenIcon : smallScreenIcon}
+    </div>
   );
 };
 
