@@ -1,0 +1,17 @@
+.footer {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__format-btn {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    img {
+      margin-right: .8rem;
+    }
+    span {
+      cursor: pointer;
+    }
+  }
+}

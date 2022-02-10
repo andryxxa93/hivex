@@ -1,0 +1,86 @@
+@import '../abstracts/variables.scss';
+
+.history-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 12rem;
+  height: 3rem;
+  background: $color-white-main;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: .5rem 1rem;
+  transition: box-shadow .3s ease;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  &:not(&:nth-child(1)) {
+    margin-left: 1rem;
+  }
+  &:hover {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  }
+  &__status {
+    width: 1rem;
+    height: 1rem;
+    background: #30B800;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 100%;
+  }
+  &__menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    &:hover {
+      .history-item__menu-item {
+        background: $color-grey-hover;
+      }
+    }
+    &-item {
+      background: $color-grey-main;
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      transition: background .3s ease;
+      &:nth-child(2) {
+        margin: .3rem 0;
+      }
+    }
+  }
+  &__dropdown {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: $color-white-main;
+    border-radius: .3rem;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    &-item {
+      padding: 1.5rem 1rem;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 4rem;
+      cursor: pointer;
+      transition: all .1s ease;
+      &:hover {
+        background: $color-hover;
+        color: $color-text-white;
+      }
+      &:nth-last-child(1) {
+        border-top: 1px solid $color-border;
+        &:hover {
+          background: $color-red-hover;
+        }
+      }
+    }
+  }
+}

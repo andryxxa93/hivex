@@ -1,0 +1,41 @@
+@import '../abstracts/variables.scss';
+
+.history {
+  height: 50px;
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+  display: flex;
+  justify-content: space-between;
+  &__content {
+    padding: 1rem 1.5rem;
+    display: flex;
+    max-width: calc(100vw - 5rem);
+    overflow-x: scroll;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &__cleaner {
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid $color-border;
+    img {
+      cursor: pointer;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      left: -16px;
+      top: 0;
+      width: 1.5rem;
+      height: calc(100% - 2px);
+      background: linear-gradient(269.93deg, #f7f7f7 0.06%, rgba(246, 246, 246, 0) 99.93%);;
+      pointer-events: none;
+    }
+  }
+}
