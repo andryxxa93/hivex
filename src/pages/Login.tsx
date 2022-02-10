@@ -4,6 +4,7 @@ import Form from 'components/Form';
 import 'styles/pages/Login.scss';
 import useTypedSelector from 'hooks/useTypedSelector';
 import useActions from 'hooks/useActions';
+import Link from 'components/UI/Link';
 
 const Login: FC = () => {
   const { isLoading, error } = useTypedSelector((state) => state.auth);
@@ -15,7 +16,7 @@ const Login: FC = () => {
     <div className="login">
       <img className="login__logo" src="./LOGO.png" alt="logo" />
       <Form onSubmitHandler={onSubmit} isLoading={isLoading} error={error} />
-      <a href="https://github.com/andryxxa93" className="login__info">https://github.com/andryxxa93</a>
+      <Link href="https://github.com/andryxxa93" />
     </div>
   );
 };

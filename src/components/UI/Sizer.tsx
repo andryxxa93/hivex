@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import 'styles/components/Sizer.scss';
+import fullScreenIcon from 'svg/fullScreenIcon';
+import smallScreenIcon from 'svg/smallScreenIcon';
 
 interface ISizer {
   fullScreen: boolean,
@@ -10,14 +12,13 @@ const Sizer: FC<ISizer> = ({ fullScreen, changeScreenSize }) => {
   return (
     fullScreen
       ? (
-        <div role="button" tabIndex={-1} onKeyDown={changeScreenSize} onClick={changeScreenSize}>
-          <img className="sizer" src="./smallWindow.svg" alt="full window sizer" />
+        <div role="button" className="sizer" tabIndex={-1} onKeyDown={changeScreenSize} onClick={changeScreenSize}>
+          {fullScreenIcon}
         </div>
-
       )
       : (
-        <div role="button" tabIndex={-1} onKeyDown={changeScreenSize} onClick={changeScreenSize}>
-          <img className="sizer" src="./fullWindow.svg" alt="full window sizer" />
+        <div role="button" className="sizer" tabIndex={-1} onKeyDown={changeScreenSize} onClick={changeScreenSize}>
+          {smallScreenIcon}
         </div>
       )
   );

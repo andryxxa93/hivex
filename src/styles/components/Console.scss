@@ -1,0 +1,56 @@
+@import '../abstracts/variables.scss';
+
+.console {
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 90%;
+  background: $color-white-main;
+  border-bottom: 1px solid $color-border;
+  box-sizing: border-box;
+  &__kebab {
+    margin: 0 .4rem;
+    cursor: col-resize;
+    height: 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    &:hover {
+      .console__kebab-item {
+        background: $color-grey-hover;
+      }
+    }
+    &-item {
+      background: $color-grey-main;
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      transition: background .3s ease;
+      &:nth-child(2) {
+        margin: .3rem 0;
+      }
+    }
+  }
+  &__response, &__request {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    min-width: 400px;
+    &-title {
+      text-align: left;
+      font-size: 1.2rem;
+      color: $color-grey-text;
+    }
+    &-content {
+      margin-top: .3rem;
+      height: 100%;
+      border: 1px solid $color-border;
+      border-radius: 5px;
+    }
+  }
+}
