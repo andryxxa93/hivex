@@ -15,9 +15,9 @@ interface IFormProps {
 const Form: FC<IFormProps> = ({
   error, isLoading, onSubmitHandler,
 }) => {
-  const userLogin = useInput('', { isEmpty: true, isLatin: true });
+  const userLogin = useInput('levanevskogo79@gmail.com', { isEmpty: true, isLatin: true });
   const subLogin = useInput('', { isLatin: true });
-  const password = useInput('', { isEmpty: true, isLatin: true });
+  const password = useInput('da0Resuox', { isEmpty: true, isLatin: true });
   const buttonDisable = !userLogin.isValid || !password.isValid;
   const onSubmit = () => {
     onSubmitHandler(userLogin.value, password.value, subLogin.value);

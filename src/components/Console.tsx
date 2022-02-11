@@ -1,12 +1,19 @@
+import useTypedSelector from 'hooks/useTypedSelector';
 import React, {
-  useEffect, useState, useRef,
+  useEffect, useState, useRef, FC, SetStateAction, Dispatch,
 } from 'react';
 
 import 'styles/components/Console.scss';
 import RequestConsole from './RequestConsole';
 import ResponseConsole from './ResponseConsole';
 
-const Console = () => {
+interface IConsoleProps {
+  setRequestContent: Dispatch<SetStateAction<string>>,
+  requestContent: string,
+}
+
+const Console:FC<IConsoleProps> = ({ setRequestContent, requestContent }) => {
+  const { response } = useTypedSelector((state) => state.console);
   const [clientWidth, setClientWidth] = useState<number | null>(null);
   const [leftConsoleWidth, setLeftConsoleWidth] = useState<string>('0px');
   const middlePosition = useRef<number | null>(null);
@@ -43,11 +50,13 @@ const Console = () => {
         setClientWidth={setClientWidth}
         clientWidth={clientWidth}
         setLeftConsoleWidth={setLeftConsoleWidth}
+        setRequestContent={setRequestContent}
+        requestContent={requestContent}
       />
       <div onMouseDown={onMouseHoldDown} onKeyDown={() => {}} role="button" tabIndex={-4} className="console__kebab">
         {[1, 2, 3].map((item) => <div className="console__kebab-item" key={item} />)}
       </div>
-      <ResponseConsole leftPaneWidth={leftConsoleWidth} />
+      <ResponseConsole response={response} leftPaneWidth={leftConsoleWidth} />
     </div>
   );
 };

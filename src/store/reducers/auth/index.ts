@@ -4,7 +4,7 @@ import {
 } from './types';
 
 const initialState: AuthState = {
-  isAuth: true,
+  isAuth: false,
   user: { account: 'account', sublogin: 'sublogin' } as IUser,
   isLoading: false,
   error: {} as ErrorType,

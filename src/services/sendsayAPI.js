@@ -1,6 +1,7 @@
 import Sendsay from 'sendsay-api';
 
 const sendsayInstance = new Sendsay();
+sendsayInstance.setSessionFromCookie('sendsay_session');
 
 export const login = (
   credentions,
@@ -11,9 +12,15 @@ export const login = (
 }).then(() => {
   return sendsayInstance.request({ action: 'pong' });
 }).then(
-  (response) => ({ account: response.account, sublogin: response.sublogin }),
+  (response) => {
+    document.cookie = `sendsay_session=${sendsayInstance.session}`;
+    return { account: response.account, sublogin: response.sublogin };
+  },
 ).catch((e) => e);
 
 export const logout = () => {
   return sendsayInstance.request({ action: 'logout' }).catch(() => {});
 };
+
+export const sendRequest = (payload) => sendsayInstance.request(payload)
+  .then((response) => response);

@@ -47,10 +47,17 @@
       color: $color-grey-text;
     }
     &-content {
+      text-align: left;
+      padding: 1rem;
+      resize: none;
       margin-top: .3rem;
       height: 100%;
       border: 1px solid $color-border;
       border-radius: 5px;
+      font-family: monospace;
+      font-size: 1.4rem;
+      white-space: pre-wrap;
+      word-break: break-all;
     }
   }
 }
