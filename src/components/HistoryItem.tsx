@@ -1,8 +1,13 @@
 import useComponentVisible from 'hooks/useOutSideClickHook';
-import React from 'react';
+import React, { FC } from 'react';
+import { HistoryObject } from 'store/reducers/console/types';
 import 'styles/components/HistoryItem.scss';
 
-const HistoryItemInner = () => {
+interface HistoryItemProps {
+  request: HistoryObject
+}
+
+const HistoryItemInner:FC<HistoryItemProps> = ({ request }) => {
   const {
     ref, menuRef, isComponentVisible, setIsComponentVisible,
   } = useComponentVisible(false);
@@ -11,9 +16,9 @@ const HistoryItemInner = () => {
   };
   return (
     <div className="history-item">
-      <div className="history-item__status" />
+      <div className={`history-item__status history-item__status_${request.status}`} />
       <div className="history-item__title">
-        title
+        {request.requestName}
       </div>
       <div ref={menuRef} role="button" tabIndex={-2} onKeyDown={() => setDropdownVisibleHandler()} onClick={() => setDropdownVisibleHandler()} className="history-item__menu">
         {[1, 2, 3].map((item) => <div className="history-item__menu-item" key={item} />)}
