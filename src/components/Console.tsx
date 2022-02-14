@@ -1,18 +1,20 @@
 import useTypedSelector from 'hooks/useTypedSelector';
 import React, {
-  useEffect, useState, useRef, FC, SetStateAction, Dispatch,
+  useEffect, useState, useRef, FC,
 } from 'react';
+import { IError, SetRequestAction } from 'store/reducers/console/types';
 
 import 'styles/components/Console.scss';
 import RequestConsole from './RequestConsole';
 import ResponseConsole from './ResponseConsole';
 
 interface IConsoleProps {
-  setRequestContent: Dispatch<SetStateAction<string>>,
+  setRequestContent: (request: string) => SetRequestAction,
   requestContent: string,
+  error: IError,
 }
 
-const Console:FC<IConsoleProps> = ({ setRequestContent, requestContent }) => {
+const Console:FC<IConsoleProps> = ({ setRequestContent, requestContent, error }) => {
   const { response } = useTypedSelector((state) => state.console);
   const [clientWidth, setClientWidth] = useState<number | null>(null);
   const [leftConsoleWidth, setLeftConsoleWidth] = useState<string>('0px');
@@ -47,6 +49,7 @@ const Console:FC<IConsoleProps> = ({ setRequestContent, requestContent }) => {
   return (
     <div className="console">
       <RequestConsole
+        error={error.request}
         setClientWidth={setClientWidth}
         clientWidth={clientWidth}
         setLeftConsoleWidth={setLeftConsoleWidth}
@@ -56,7 +59,11 @@ const Console:FC<IConsoleProps> = ({ setRequestContent, requestContent }) => {
       <div onMouseDown={onMouseHoldDown} onKeyDown={() => {}} role="button" tabIndex={-4} className="console__kebab">
         {[1, 2, 3].map((item) => <div className="console__kebab-item" key={item} />)}
       </div>
-      <ResponseConsole response={response} leftPaneWidth={leftConsoleWidth} />
+      <ResponseConsole
+        error={error.response}
+        response={response}
+        leftPaneWidth={leftConsoleWidth}
+      />
     </div>
   );
 };

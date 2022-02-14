@@ -1,5 +1,5 @@
 import {
-  ConsoleAction, ConsoleActionsEnum, ConsoleState, HistoryObject,
+  ConsoleAction, ConsoleActionsEnum, ConsoleState, HistoryObject, LOCAL_STORAGE_KEYS,
 } from './types';
 
 const initialState: ConsoleState = {
@@ -7,7 +7,7 @@ const initialState: ConsoleState = {
   response: '',
   request: '',
   isLoading: false,
-  error: '',
+  error: { request: false, response: false },
 };
 
 export default function authReducer(state = initialState, action: ConsoleAction) {
@@ -20,9 +20,41 @@ export default function authReducer(state = initialState, action: ConsoleAction)
       return { ...state, request: action.payload };
     case ConsoleActionsEnum.SET_RESPONSE:
       return { ...state, response: action.payload };
+    case ConsoleActionsEnum.CLEAR_HISTORY: {
+      if (action.payload === 'all') {
+        localStorage.removeItem(LOCAL_STORAGE_KEYS.HISTORY_REQUEST);
+        return { ...state, history: [] };
+      }
+      const newHistory = state.history.filter((item) => item.requestName !== action.payload);
+      localStorage.setItem(LOCAL_STORAGE_KEYS.HISTORY_REQUEST, JSON.stringify(newHistory));
+      return { ...state, history: newHistory }; }
     case ConsoleActionsEnum.SET_HISTORY: {
-      const history = [...state.history, action.payload]
-        .sort((a, b) => +a.timeStamp - +b.timeStamp);
+      if (action.payload instanceof Array) {
+        const history = action.payload;
+        return { ...state, history };
+      }
+      const {
+        requestName, response, timeStamp, status, request,
+      } = action.payload;
+      const elementInHistory = state.history.find((elem) => {
+        return elem.requestName === requestName;
+      });
+      let history;
+      if (elementInHistory) {
+        history = state.history.map((elem) => {
+          if (elem.requestName !== requestName) {
+            return elem;
+          }
+          return {
+            request, requestName, timeStamp, status, response,
+          };
+        });
+      } else {
+        history = [...state.history];
+        history.push(action.payload);
+      }
+      history.sort((a, b) => (+b.timeStamp - +a.timeStamp));
+      localStorage.setItem(LOCAL_STORAGE_KEYS.HISTORY_REQUEST, JSON.stringify(history));
       return { ...state, history };
     }
     default:

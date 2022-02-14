@@ -5,17 +5,30 @@ import 'styles/components/HistoryRow.scss';
 
 interface HistoryRowProps {
   history: HistoryObject[],
+  clearHistory: (item: string) => void,
+  copyHandler: (request: string) => void,
+  repeatRequestHandler: (request: string) => void,
 }
 
-const HistoryRow:FC<HistoryRowProps> = ({ history }) => {
+const HistoryRow:FC<HistoryRowProps> = ({
+  history, clearHistory, copyHandler, repeatRequestHandler,
+}) => {
   return (
     <div className="history">
       <div className="history__content">
         {history.map((item) => {
-          return <HistoryItem key={item.requestName} request={item} />;
+          return (
+            <HistoryItem
+              onRepeat={() => repeatRequestHandler(item.request)}
+              onCopy={() => copyHandler(item.request)}
+              onDelete={() => clearHistory(item.requestName)}
+              key={item.requestName}
+              request={item}
+            />
+          );
         })}
       </div>
-      <div className="history__cleaner">
+      <div onClick={() => clearHistory('all')} onKeyDown={() => {}} tabIndex={-6} role="button" className="history__cleaner">
         <img src="./cleaner.svg" alt="cross" />
       </div>
     </div>

@@ -1,7 +1,8 @@
 import Sendsay from 'sendsay-api';
+import { CookieKey, deleteCookie } from 'utils/cookieFunctions';
 
 const sendsayInstance = new Sendsay();
-sendsayInstance.setSessionFromCookie('sendsay_session');
+sendsayInstance.setSessionFromCookie(CookieKey.SENDSAY_SESSION_KEY);
 
 export const login = (
   credentions,
@@ -13,12 +14,15 @@ export const login = (
   return sendsayInstance.request({ action: 'pong' });
 }).then(
   (response) => {
-    document.cookie = `sendsay_session=${sendsayInstance.session}`;
-    return { account: response.account, sublogin: response.sublogin };
+    const userInfo = { account: response.account, sublogin: response.sublogin };
+    localStorage.setItem('user_info', JSON.stringify(userInfo));
+    document.cookie = `${CookieKey.SENDSAY_SESSION_KEY}=${sendsayInstance.session}`;
+    return userInfo;
   },
 ).catch((e) => e);
 
 export const logout = () => {
+  deleteCookie(CookieKey.SENDSAY_SESSION_KEY);
   return sendsayInstance.request({ action: 'logout' }).catch(() => {});
 };
 
