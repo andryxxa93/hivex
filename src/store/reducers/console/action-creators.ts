@@ -1,12 +1,17 @@
 import { sendRequest } from 'services/sendsayAPI';
+import isValidJSON from 'utils/isValidJSON';
 import {
+  ClearHistoryAction,
   ConsoleActionsEnum,
   HistoryObject,
+  IError,
+  IRequest,
   SetErrorAction,
   SetHistoryAction,
   SetIsLoadingAction,
   SetRequestAction,
   SetResponseAction,
+  StatusesEnum,
 } from './types';
 
 const ConsoleActionCreator = {
@@ -16,34 +21,41 @@ const ConsoleActionCreator = {
   setRequest: (request: string): SetRequestAction => {
     return { type: ConsoleActionsEnum.SET_REQUEST, payload: request };
   },
-  setError: (error: string): SetErrorAction => {
+  setError: (error: IError): SetErrorAction => {
     return { type: ConsoleActionsEnum.SET_ERROR, payload: error };
   },
   setResponse: (response: Object): SetResponseAction => {
     return { type: ConsoleActionsEnum.SET_RESPONSE, payload: response };
   },
-  setHistory: (historyItem: HistoryObject): SetHistoryAction => {
+  setHistory: (historyItem: HistoryObject | HistoryObject[]): SetHistoryAction => {
     return { type: ConsoleActionsEnum.SET_HISTORY, payload: historyItem };
   },
+  clearHistory: (item: string): ClearHistoryAction => {
+    return { type: ConsoleActionsEnum.CLEAR_HISTORY, payload: item };
+  },
   sendRequest: (request: string) => async (dispatch: any) => {
-    const parsedReq = JSON.parse(request);
+    if (!isValidJSON(request)) {
+      dispatch(ConsoleActionCreator.setError({ response: false, request: true }));
+      return;
+    }
+    const parsedReq = JSON.parse(request) as IRequest;
     const date = Date.now();
     dispatch(ConsoleActionCreator.setIsLoading(true));
-    const dispatchingRequest = (response: any, status: 'ok' | 'error') => {
+    const dispatchingRequest = (response: any, status: StatusesEnum) => {
       dispatch(ConsoleActionCreator.setIsLoading(false));
       dispatch(ConsoleActionCreator.setResponse(response));
       dispatch(ConsoleActionCreator.setHistory(
         {
-          requestName: parsedReq.action, response, timeStamp: date, status,
+          request, requestName: parsedReq.action, response, timeStamp: date, status,
         },
       ));
     };
     try {
       const response = await sendRequest(parsedReq);
-      dispatchingRequest(response, 'ok');
+      dispatchingRequest(response, StatusesEnum.OK);
     } catch (response: any) {
-      dispatchingRequest(response, 'error');
-      dispatch(ConsoleActionCreator.setError(JSON.stringify(response.id)));
+      dispatchingRequest(response, StatusesEnum.ERROR);
+      dispatch(ConsoleActionCreator.setError({ request: true, response: true }));
     }
   },
 };

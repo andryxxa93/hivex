@@ -1,18 +1,14 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
-import jsonBeautifier from 'utils/jsonBeautifier';
+import React, { FC } from 'react';
 import Button from './Button';
 import 'styles/components/Footer.scss';
 import Link from './UI/Link';
 
 interface FooterProps {
   onClickHandler: () => void,
-  setRequestContent: Dispatch<SetStateAction<string>>,
+  onFormatHandler: () => void,
 }
 
-const Footer:FC<FooterProps> = ({ onClickHandler, setRequestContent }) => {
-  const onFormatHandler = () => {
-    setRequestContent((prev) => jsonBeautifier(JSON.parse(prev)));
-  };
+const Footer:FC<FooterProps> = ({ onClickHandler, onFormatHandler }) => {
   return (
     <div className="footer">
       <Button onClickHandler={onClickHandler} title="Отправить" />

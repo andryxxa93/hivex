@@ -1,6 +1,7 @@
 @import '../abstracts/variables.scss';
 
 .history {
+  position: relative;
   height: 50px;
   border-top: 1px solid $color-border;
   border-bottom: 1px solid $color-border;
@@ -10,7 +11,7 @@
     padding: 1rem 1.5rem;
     display: flex;
     max-width: calc(100vw - 5rem);
-    overflow-x: scroll;
+    // overflow-x: scroll;
     scrollbar-width: none;
     &::-webkit-scrollbar {
       display: none;

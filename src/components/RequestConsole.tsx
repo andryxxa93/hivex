@@ -1,18 +1,20 @@
 import React, {
   FC, createRef, useEffect, SetStateAction, Dispatch, ChangeEvent,
 } from 'react';
+import { SetRequestAction } from 'store/reducers/console/types';
 
 interface RequestConsoleProps {
   setLeftConsoleWidth: Dispatch<SetStateAction<string>>
   clientWidth: number | null,
   setClientWidth: Dispatch<SetStateAction<number | null>>,
-  setRequestContent: Dispatch<SetStateAction<string>>,
-  requestContent: string
+  setRequestContent: (request: string) => SetRequestAction,
+  requestContent: string,
+  error: boolean,
 }
 
 const RequestConsole:FC<RequestConsoleProps> = (
   {
-    setLeftConsoleWidth, clientWidth, setClientWidth, setRequestContent, requestContent,
+    setLeftConsoleWidth, clientWidth, setClientWidth, setRequestContent, requestContent, error,
   },
 ) => {
   const leftConsoleRef = createRef<HTMLDivElement>();
@@ -35,7 +37,7 @@ const RequestConsole:FC<RequestConsoleProps> = (
   return (
     <div ref={leftConsoleRef} className="console__request">
       <span className="console__request-title">Запрос:</span>
-      <textarea onChange={onRequestChange} value={requestContent} className="console__request-content" />
+      <textarea onChange={onRequestChange} value={requestContent} className={`console__request-content  ${error ? 'console__request-content_error' : ''}`} />
     </div>
   );
 };
